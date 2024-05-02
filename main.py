@@ -70,22 +70,6 @@ class BST:
 
     def height(self) -> int:
         if not self.root:
-            return -1
-        queue = [self.root]
-        height = -1
-        while queue:
-            height += 1
-            level_size = len(queue)
-            for _ in range(level_size):
-                node = queue.pop(0)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-        return height
-
-    def height(self) -> int:
-        if not self.root:
             return 0
         queue = [self.root]
         height = 0
@@ -99,6 +83,21 @@ class BST:
                 if node.right:
                     queue.append(node.right)
         return height
+
+    def count_leaves(self) -> int:
+        if not self.root:
+            return 0
+        count = 0
+        stack = [self.root]
+        while stack:
+            node = stack.pop()
+            if not node.left and not node.right:
+                count += 1
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        return count
     
     def serialize(self) -> str:
         pass
