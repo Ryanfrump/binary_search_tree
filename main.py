@@ -100,7 +100,36 @@ class BST:
         return count
     
     def serialize(self) -> str:
-        pass
+        if not self.root:
+            return '#'
+        queue = [self.root]
+        result = []
+        while queue:
+            node = queue.pop(0)
+            if node:
+                result.append(str(node.value))
+                queue.append(node.left)
+                queue.append(node.right)
+            else:
+                result.append('#')
+        return ','.join(result)
+
 
     def deserialize(self, tree: str) -> None:
-        pass
+        if tree == '#':
+            self.root = None
+            return
+        values = tree.split(',')
+        self.root = TreeNode(int(values[0]))
+        queue = [self.root]
+        index = 1
+        while queue:
+            node = queue.pop(0)
+            if index < len(values) and values[index] != '#':
+                node.left = TreeNode(int(values[index]))
+                queue.append(node.left)
+            index += 1
+            if index < len(values) and values[index] != '#':
+                node.right = TreeNode(int(values[index]))
+                queue.append(node.right)
+            index += 1

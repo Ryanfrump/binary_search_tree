@@ -45,6 +45,12 @@ def test_height(tree):
 def test_count_leaves(tree):
     assert tree.count_leaves() == 4
 
+def test_serialize_deserialize(tree):
+    serialized_tree = tree.serialize()
+    new_tree = BST()
+    new_tree.deserialize(serialized_tree)
+    assert new_tree.in_order_traversal() == [2, 3, 4, 5, 6, 7, 8]
+
 
     
 
